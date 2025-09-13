@@ -3,7 +3,7 @@
 <b> The hypothetical ask </b> ; "Digital Twin for Management and Leadership Teams: Create AI-powered digital replicas of management systems and leadership teams. Provides real-time insights, decision support, simulations, and executive coaching tools integrating live data, team dynamics, and personalised assistant features for leaders. "
 
 
-This repository hosts a IMO digital twin platform designed to model, simulate, and analyse management processes in real-time. The system creates a virtual representation of organisational, operational, and project management frameworks—mirroring real-world managerial entities, workflows, resources, and data. Its features enable advanced monitoring, decision support, and performance optimisation through dynamic feedback and analytics. Detail of Key features can be found in the key features markdown document [todo]
+This repository hosts an IMO digital twin platform designed to model, simulate, and analyse management processes in real time. The system creates a virtual representation of organisational, operational, and project management frameworks—mirroring real-world managerial entities, workflows, resources, and data. Its features enable advanced monitoring, decision support, and performance optimisation through dynamic feedback and analytics. Details of key features can be found in the Key Features markdown document [todo]
 
 
 <b> Key Features </b>
