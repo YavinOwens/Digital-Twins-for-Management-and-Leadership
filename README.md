@@ -9,8 +9,8 @@ This repository hosts a IMO digital twin platform designed to model, simulate, a
 <b> Key Features </b>
 
 - Virtual models for both entire management systems and specific leadership teams, reflecting roles, communication patterns, decision flows, and behavioral traits.
-- Voice Recognition and NLP : propritory 
-- Machine Learning Integration : propritory 
+- Voice Recognition and NLP : proprietary 
+- Machine Learning Integration : proprietary 
 - Multi-Platform Integration:  Integration with organisational data, business intelligence, HR tools, and comms platforms to keep the digital twins up-to-date and contextually relevant.
 - Organic Platform Integration: Integration of leadership attributes, individual leader profiles, and team dynamics for scenario simulation (e.g., restructuring, crisis response, succession planning).
 - Assistant functionality for executives: personalized recommendations, strategic planning support, and continuous learning or coaching via AI-driven feedback loops.
