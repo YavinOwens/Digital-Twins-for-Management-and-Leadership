@@ -2,9 +2,7 @@
 
 <b> The hypothetical ask </b> ; "Digital Twin for Management and Leadership Teams: Create AI-powered digital replicas of management systems and leadership teams. Provides real-time insights, decision support, simulations, and executive coaching tools integrating live data, team dynamics, and personalised assistant features for leaders. "
 
-
 This repository hosts an IMO digital twin platform designed to model, simulate, and analyse management processes in real time. The system creates a virtual representation of organisational, operational, and project management frameworks—mirroring real-world managerial entities, workflows, resources, and data. Its features enable advanced monitoring, decision support, and performance optimisation through dynamic feedback and analytics. Details of key features can be found in the Key Features markdown document [todo]
-
 
 <b> Key Features </b>
 
@@ -45,7 +43,7 @@ Embed AI, optimization algorithms, and advanced analytics to simulate and automa
 Foster organizational agility and resilience through continuous monitoring, feedback loops, and rapid adjustment.
 Enhance communication and coordination across virtual teams and remote workforces, improving the organizational leadership model.
 
-Key Layers in Management Digital Twin Architectures
+<b> Key Layers in Management Digital Twin Architectures </b>
 Digital twins for management and leadership typically leverage a five-layered technology stack:
 
 - Physical layer: Sensors and real-world data sources
@@ -76,24 +74,73 @@ Successful implementation requires robust big data infrastructure, clear organiz
 
 Leadership buy-in is essential, as is ongoing data governance and ethical oversight to avoid “algorithmic blindness” or bias in decisions.
 
-
 [todo]
 
 Timeline [Todo]
 
 Digital Assitance vs Digital Twins 
-
+[Insert slide deck slide(n2)] 
 
 5 n Beyond (Incubator Challenge) 
-
 [Insert slide deck slide(n1)] 
+
+provide a product for the following 
+Must Have
+- Integration of leadership attributes 
+- individual leader profiles
+- team dynamics for scenario simulation
+  - crisis response
+  - succession planning
+  - restructuring (Business Resllience best case, worst case) 
+
+Assistant functionality for organisationl layers: 
+
+Layer 1 : Governance
+Must have:
+- strategic planning support
+- personalised recommendations
+- learning or coaching via AI-driven feedback loops
+  
+Layer 2 : Executive
+Must have:
+- strategic planning support
+- personalised recommendations
+- learning or coaching via AI-driven feedback loops
+  
+Layer 3 : Senior Management
+Must have:
+- strategic planning support
+- personalised recommendations
+- learning or coaching via AI-driven feedback loops
+  
+Layer 4 : Middle Management
+Must have:
+- strategic planning support
+- personalised recommendations
+- learning or coaching via AI-driven feedback loops
+  
+Layer 5 : Supervisory
+Must have:
+- strategic planning support
+- personalised recommendations
+- learning or coaching via AI-driven feedback loops
+  
+Layer 6 : Contributor
+Must have:
+- strategic planning support
+- personalised recommendations
+- learning or coaching via AI-driven feedback loops
+
+What if simulation: (Contextual)
+Outputs :  analysis for leadership scenarios—enabling evidence-based decisions and future-proofing strategies.
+
 
 Declaration of Competing Interest I  declare that i have no known competing nancial interests or personal relationships that could have appeared to infuence this proof of concept. 
 
 Reference
 
 1. Petri, I., Rezgui, Y., Ghoroghi, A. & Alzahrani, A., 2023. Digital twins for performance management in the built environment. Journal of Industrial Information Integration, 33, 100445. Available at: https://www.researchgate.net/ (Accessed: 12 September 2025).
-2. Sharma, A., Kosasih, E., Zhang, J., Brintrup, A., & Calinescu, A. (2022). Digital Twins: State of the Art Theory and Practice, Challenges, and Open Research Questions. Journal of Industrial Information Integration, 30, 100383.
+2. Sharma, A., Kosasih, E., Zhang, J., Brintrup, A., & Calinescu, A. (2022). Digital Twins: State of the Art Theory and Practice, Challenges, and Open Research Questions. Journal of Industrial Information Integration, 30, 100383. https://www.researchgate.net/ (Accessed: 13 September 2025).
 Discusses theoretical frameworks, practical implementations, and research challenges for digital twins in various domains, with a focus on organizational settings.
 3. Saunila, M., Ukko, J., Rantala, T., & Havukainen, J. (2022). Characteristics of digital twins and theorizing their impact on organizational control.
 Explores how digital twin features influence formal and social control mechanisms in organizations, using empirical survey data.
