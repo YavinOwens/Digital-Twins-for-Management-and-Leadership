@@ -14,7 +14,7 @@ A comprehensive Streamlit application that orchestrates multiple AI agent teams 
 - **Seven Teams**: + Technical Documentation
 
 ### **Advanced Capabilities**
-- **Hybrid Model Support**: Local Ollama (llama3.1) and Ollama Cloud (Turbo)
+- **Hybrid Model Support**: Local Ollama (llama3.1) and Ollama Cloud (Turbo) - oss20b model used for advanced capabilities
 - **Real-time Web Search**: DuckDuckGo integration with enhanced visualization
 - **Conversation Memory**: ChromaDB with local embeddings (no external API keys)
 - **PDF Report Generation**: Professional templated reports with multiple layouts
@@ -143,13 +143,34 @@ web_knowledge/
 ```
 
 ### **Agent Teams**
-- **Research & Analysis**: Web search, data gathering, analysis
-- **Data Strategy**: DAMA implementation, data governance
-- **Compliance & Risk**: Regulatory compliance, risk management
-- **Information Management**: Data lifecycle, metadata management
-- **Tender Response**: Proposal writing, compliance checking
-- **Project Delivery**: Technical implementation, project management
-- **Technical Documentation**: Code generation, documentation
+
+| Team | Agent | Role | Purpose |
+|------|-------|------|---------|
+| **Research & Analysis** | Research Specialist | Web research and information gathering | Conduct comprehensive web research to gather current, relevant information |
+| | Data Analyst | Pattern analysis and insights | Analyze research findings to identify patterns, trends, and key insights |
+| | Content Writer | Content creation and structuring | Create well-structured, engaging content based on research and analysis |
+| **Data Strategy** | Data Governance Specialist | DAMA-DMBOK frameworks | Create comprehensive DAMA-DMBOK frameworks and data governance structures |
+| | DCAM Template Specialist | Assessment models and maturity frameworks | Develop Data Capability Assessment Model templates and maturity frameworks |
+| | Tranch Guidance Specialist | Implementation roadmaps | Design phased implementation roadmaps and delivery tranches |
+| **Compliance & Risk** | Compliance Specialist | Regulatory compliance | Ensure comprehensive regulatory compliance across all data initiatives |
+| | Risk Management Specialist | Risk assessment and mitigation | Conduct comprehensive risk assessments and develop mitigation strategies |
+| | Audit & Governance Specialist | Audit frameworks and oversight | Design comprehensive audit frameworks and governance oversight mechanisms |
+| **Information Management** | Information Governance Specialist | Information lifecycle management | Develop comprehensive information governance frameworks for data assets |
+| | Metadata Management Specialist | Metadata frameworks and cataloging | Design and implement comprehensive metadata management frameworks |
+| | Data Quality Specialist | Data quality management | Establish comprehensive data quality management frameworks |
+| **Tender Response** | Tender Response Specialist | Tender analysis and strategy | Analyze tender requirements and create comprehensive response strategies |
+| | Proposal Writer | Proposal creation and writing | Create compelling, well-structured tender responses with value propositions |
+| | Tender Compliance Expert | Regulatory compliance for tenders | Ensure all tender responses meet regulatory requirements and standards |
+| **Project Delivery** | Senior Data Engineer | Data pipelines and infrastructure | Design and implement robust data pipelines and ETL processes |
+| | Lead Data Scientist | Analytics and ML models | Develop advanced analytics models and machine learning algorithms |
+| | Principal Data Architect | Data architecture and integration | Design comprehensive data architectures and integration strategies |
+| | Senior DevOps Engineer | CI/CD and infrastructure | Implement CI/CD pipelines and operational monitoring systems |
+| | Technical Project Manager | Project coordination and delivery | Coordinate technical delivery and manage resources for successful implementation |
+| **Technical Documentation** | Data Modeling Specialist | Data models and diagrams | Create comprehensive data models and entity relationship diagrams |
+| | Python Code Specialist | Python development | Generate high-quality Python code, scripts, and data processing pipelines |
+| | SQL Code Specialist | Database development | Create optimized SQL queries, database schemas, and data manipulation scripts |
+| | PySpark Code Specialist | Big data processing | Develop PySpark code for big data processing and distributed computing |
+| | Technical Writer | Documentation creation | Create comprehensive technical documentation and implementation guides |
 
 ## Configuration
 
@@ -250,68 +271,6 @@ All settings can be configured via environment variables in the `.env` file:
 This project is open source and available under the MIT License.
 
 ---
-
-## 🏢 Digital Twins for Management and Leadership
-
-This system implements the Digital Twin concept for management and leadership teams, providing AI-powered digital replicas of management systems and leadership teams with real-time insights, decision support, simulations, and executive coaching tools.
-
-### **Digital Twin Capabilities**
-
-The system provides assistant functionality for all organizational layers:
-
-**Layer 1: Governance**
-- Strategic planning support
-- Personalized recommendations
-- Learning or coaching via AI-driven feedback loops
-
-**Layer 2: Executive**
-- Strategic planning support
-- Personalized recommendations
-- Learning or coaching via AI-driven feedback loops
-
-**Layer 3: Senior Management**
-- Strategic planning support
-- Personalized recommendations
-- Learning or coaching via AI-driven feedback loops
-
-**Layer 4: Middle Management**
-- Strategic planning support
-- Personalized recommendations
-- Learning or coaching via AI-driven feedback loops
-
-**Layer 5: Supervisory**
-- Strategic planning support
-- Personalized recommendations
-- Learning or coaching via AI-driven feedback loops
-
-**Layer 6: Contributor**
-- Strategic planning support
-- Personalized recommendations
-- Learning or coaching via AI-driven feedback loops
-
-### **What-If Simulation**
-Contextual analysis for leadership scenarios—enabling evidence-based decisions and future-proofing strategies.
-
-### **Research Foundation**
-
-This implementation is based on extensive research in Digital Twins for management and leadership:
-
-1. **Petri, I., Rezgui, Y., Ghoroghi, A. & Alzahrani, A., 2023.** Digital twins for performance management in the built environment. Journal of Industrial Information Integration, 33, 100445.
-
-2. **Sharma, A., Kosasih, E., Zhang, J., Brintrup, A., & Calinescu, A. (2022).** Digital Twins: State of the Art Theory and Practice, Challenges, and Open Research Questions. Journal of Industrial Information Integration, 30, 100383.
-
-3. **Saunila, M., Ukko, J., Rantala, T., & Havukainen, J. (2022).** Characteristics of digital twins and theorizing their impact on organizational control.
-
-4. **Tello, A., & Degeler, V. (2024).** Digital Twins – an enabler for digital transformation. Groningen Digital Business Centre, University of Groningen.
-
-5. **"Digital twins of organization: implications for organization" (2024).** Journal of Organization Design, 13(3).
-
-6. **Semeraro, C., et al. (2021).** Digital twin paradigm: A systematic literature review.
-
-### **Additional Notable Studies**
-
-1. **"Building an organizational digital twin" (2020).** Business Horizons, 63(6), 725–736.
-2. **Strozzi, F., et al. (2019).** A state-of-the-art survey of Digital Twin: techniques, engineering product lifecycle management, and business innovation perspectives. Journal of Manufacturing Systems, 2020.
 
 ## Declaration of Competing Interest
 
