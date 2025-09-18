@@ -13,7 +13,7 @@ The system supports 7 different workflow types, each orchestrating multiple agen
 **Function**: `run_crew_workflow`
 **Teams**: Research & Analysis
 **Purpose**: Basic research and analysis tasks
-**Execution Time**: ~5-10 minutes
+**Execution Time**: ~2-3 minutes
 **Use Cases**: Simple research questions, basic analysis, content creation
 
 ### 2. Two Team Workflow
@@ -21,7 +21,7 @@ The system supports 7 different workflow types, each orchestrating multiple agen
 **Function**: `run_two_team_workflow`
 **Teams**: Research & Analysis → Data Strategy
 **Purpose**: Research with data governance strategy
-**Execution Time**: ~10-15 minutes
+**Execution Time**: ~3-4 minutes
 **Use Cases**: Data strategy development, DAMA implementation, governance planning
 
 ### 3. Three Team Workflow
@@ -29,7 +29,7 @@ The system supports 7 different workflow types, each orchestrating multiple agen
 **Function**: `run_three_team_workflow`
 **Teams**: Research & Analysis → Data Strategy → Compliance & Risk
 **Purpose**: Research with strategy and compliance
-**Execution Time**: ~15-20 minutes
+**Execution Time**: ~4-5 minutes
 **Use Cases**: Compliance planning, risk assessment, regulatory analysis
 
 ### 4. Four Team Workflow
@@ -37,7 +37,7 @@ The system supports 7 different workflow types, each orchestrating multiple agen
 **Function**: `run_four_team_workflow`
 **Teams**: Research & Analysis → Data Strategy → Compliance & Risk → Information Management
 **Purpose**: Complete data management lifecycle
-**Execution Time**: ~20-25 minutes
+**Execution Time**: ~5-6 minutes
 **Use Cases**: Comprehensive data management, information governance, metadata management
 
 ### 5. Five Team Workflow
@@ -45,7 +45,7 @@ The system supports 7 different workflow types, each orchestrating multiple agen
 **Function**: `run_five_team_workflow`
 **Teams**: Research & Analysis → Data Strategy → Compliance & Risk → Information Management → Tender Response
 **Purpose**: Data management with tender response
-**Execution Time**: ~25-30 minutes
+**Execution Time**: ~2.5-3 minutes
 **Use Cases**: Tender responses, proposal writing, competitive positioning
 
 ### 6. Six Team Workflow
@@ -53,7 +53,7 @@ The system supports 7 different workflow types, each orchestrating multiple agen
 **Function**: `run_six_team_workflow`
 **Teams**: Research & Analysis → Data Strategy → Compliance & Risk → Information Management → Tender Response → Project Delivery
 **Purpose**: Complete project lifecycle
-**Execution Time**: ~30-35 minutes
+**Execution Time**: ~3-5 minutes
 **Use Cases**: Project delivery, technical implementation, end-to-end solutions
 
 ### 7. Seven Team Workflow
@@ -61,7 +61,7 @@ The system supports 7 different workflow types, each orchestrating multiple agen
 **Function**: `run_seven_team_workflow`
 **Teams**: Research & Analysis → Data Strategy → Compliance & Risk → Information Management → Tender Response → Project Delivery → Technical Documentation
 **Purpose**: Complete solution with documentation
-**Execution Time**: ~35-40 minutes
+**Execution Time**: ~5-10 minutes
 **Use Cases**: Comprehensive solutions, technical documentation, complete project delivery
 
 ## Workflow Execution Pattern
