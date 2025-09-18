@@ -2,6 +2,8 @@
 
 A comprehensive Streamlit application that orchestrates multiple AI agent teams using CrewAI with Ollama (local and cloud) for enterprise-level research, analysis, and document generation. This system implements the Digital Twin concept for management and leadership teams, providing AI-powered digital replicas of management systems and leadership teams with real-time insights, decision support, simulations, and executive coaching tools.
 
+![Landing page with 7 team workflows selected](Home.png)
+
 ## 🚀 Features
 
 ### **Multi-Team Workflows (1-7 Teams)**
