@@ -250,7 +250,7 @@ class DocumentUploadUI:
                 # Generate unique key for dataframe
                 doc_name = result.get('metadata', {}).get('filename', 'unknown')
                 unique_key = self._generate_unique_key("dataframe", doc_name)
-                st.dataframe(df, use_container_width=True, key=unique_key)
+                st.dataframe(df, width='stretch', key=unique_key)
             
             elif 'sheets' in result:
                 st.write("**Sheets Preview:**")
@@ -262,7 +262,7 @@ class DocumentUploadUI:
                             df = pd.DataFrame(sheet_data['sample_data'])
                             # Generate unique key for sheet dataframe
                             sheet_key = self._generate_unique_key(f"sheet_{sheet_name}", doc_name)
-                            st.dataframe(df, use_container_width=True, key=sheet_key)
+                            st.dataframe(df, width='stretch', key=sheet_key)
         
         elif result.get('type') == 'semi_structured':
             if 'sample_lines' in result:
@@ -276,7 +276,7 @@ class DocumentUploadUI:
                 # Generate unique key based on document metadata
                 doc_name = result.get('metadata', {}).get('filename', 'unknown')
                 unique_key = self._generate_unique_key("preview_text", doc_name)
-                st.text_area("", result['sample_text'], height=200, disabled=True, key=unique_key)
+                st.text_area("Content Preview", result['sample_text'], height=200, disabled=True, key=unique_key, label_visibility="collapsed")
     
     def _display_database_info(self, result: Dict[str, Any]) -> None:
         """
@@ -301,7 +301,7 @@ class DocumentUploadUI:
                         col_df = pd.DataFrame(table_data['columns'])
                         # Generate unique key for column dataframe
                         col_key = self._generate_unique_key(f"table_cols_{table_name}")
-                        st.dataframe(col_df, use_container_width=True, key=col_key)
+                        st.dataframe(col_df, width='stretch', key=col_key)
                     
                     # Show sample data
                     if 'sample_data' in table_data and table_data['sample_data']:
@@ -309,7 +309,7 @@ class DocumentUploadUI:
                         df = pd.DataFrame(table_data['sample_data'])
                         # Generate unique key for sample data dataframe
                         sample_key = self._generate_unique_key(f"table_sample_{table_name}")
-                        st.dataframe(df, use_container_width=True, key=sample_key)
+                        st.dataframe(df, width='stretch', key=sample_key)
     
     def _display_directory_summary(self, processed_files: Dict[str, Any]) -> None:
         """
@@ -345,7 +345,7 @@ class DocumentUploadUI:
         if type_counts:
             st.write("**File Types:**")
             type_df = pd.DataFrame(list(type_counts.items()), columns=['Type', 'Count'])
-            st.dataframe(type_df, use_container_width=True, key="file_type_breakdown")
+            st.dataframe(type_df, width='stretch', key="file_type_breakdown")
     
     def create_document_management_section(self) -> None:
         """
