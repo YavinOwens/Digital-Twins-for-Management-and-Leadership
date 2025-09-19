@@ -23,7 +23,7 @@ from .workflow_executor import perform_workflow_presearch
 from local_memory import add_to_memory
 
 
-def run_three_team_workflow(query: str, llm, conversation_history: List[Any] = None, use_native_function_calling: bool = False) -> str:
+def run_three_team_workflow(query: str, llm, conversation_history: List[Any] = None, use_native_function_calling: bool = False, document_context: str = None) -> str:
     """
     Run the three-team workflow: Research Team → Data Strategy Team → Compliance & Risk Team
     """
@@ -189,7 +189,7 @@ def run_three_team_workflow(query: str, llm, conversation_history: List[Any] = N
             
             # Create first team tasks with search data
             first_team_tasks = create_research_analysis_tasks_with_data(
-                researcher, analyst, writer, query, search_results, conversation_history
+                researcher, analyst, writer, query, search_results, conversation_history, document_context
             )
             
             # Create first team crew

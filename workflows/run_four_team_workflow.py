@@ -26,7 +26,7 @@ from .workflow_executor import perform_workflow_presearch
 from team_outputs.output_manager import TeamOutputManager
 from local_memory import add_to_memory
 
-def run_four_team_workflow(query: str, llm, conversation_history: List[Any] = None, use_native_function_calling: bool = False) -> str:
+def run_four_team_workflow(query: str, llm, conversation_history: List[Any] = None, use_native_function_calling: bool = False, document_context: str = None) -> str:
     """
     Run the four-team workflow: Research Team → Data Strategy Team → Compliance & Risk Team → Information Management Team
     """
@@ -225,7 +225,7 @@ def run_four_team_workflow(query: str, llm, conversation_history: List[Any] = No
             
             # Create first team tasks
             print("🔧 Creating first team tasks...")
-            first_team_tasks = create_research_analysis_tasks_with_data(researcher, analyst, writer, query, search_results, conversation_history)
+            first_team_tasks = create_research_analysis_tasks_with_data(researcher, analyst, writer, query, search_results, conversation_history, document_context)
             print(f"✅ First team tasks created: {len(first_team_tasks)} tasks")
             
             # Create first team crew

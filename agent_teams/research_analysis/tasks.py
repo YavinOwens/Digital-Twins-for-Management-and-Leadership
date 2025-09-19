@@ -135,7 +135,8 @@ def create_research_analysis_tasks_with_data(
     writer_agent,
     query: str,
     search_results: str,
-    conversation_history: Optional[List[Any]] = None
+    conversation_history: Optional[List[Any]] = None,
+    document_context: Optional[str] = None
 ) -> List[Task]:
     """
     Create Research & Analysis team tasks with pre-searched data.
@@ -147,11 +148,39 @@ def create_research_analysis_tasks_with_data(
         query: The user's query
         search_results: Pre-searched results
         conversation_history: Previous conversation context
+        document_context: Context from uploaded documents
         
     Returns:
         List of tasks for the Research & Analysis team
     """
     
-    return create_research_analysis_tasks(
+    # Create tasks with document context
+    tasks = create_research_analysis_tasks(
         researcher_agent, analyst_agent, writer_agent, query, search_results, conversation_history
     )
+    
+    # Add document context to the research task
+    if document_context and document_context != "No documents uploaded yet.":
+        research_task = tasks[0]
+        research_task.description += f"""
+        
+        **Uploaded Documents Available:**
+        {document_context}
+        
+        **Additional Instructions:**
+        - Use the uploaded documents to enhance your research
+        - Cross-reference web search results with document data
+        - Extract insights from both web sources and uploaded documents
+        - Provide a comprehensive analysis that combines external research with internal document data
+        
+        **Harvard Referencing Requirements:**
+        - Create proper Harvard references for all sources used
+        - Add inline citations throughout your research findings
+        - Validate all web sources for accessibility and credibility
+        - Fact-check all claims and statistics before including them
+        - Ensure academic integrity and proper source attribution
+        - Only include information that can be independently verified
+        - Remove any unverified or potentially false information
+        """
+    
+    return tasks

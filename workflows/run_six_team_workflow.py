@@ -26,7 +26,7 @@ from .workflow_executor import perform_workflow_presearch
 from team_outputs.output_manager import TeamOutputManager
 from local_memory import add_to_memory
 
-def run_six_team_workflow(query: str, llm, conversation_history: List[Any] = None, use_native_function_calling: bool = False) -> str:
+def run_six_team_workflow(query: str, llm, conversation_history: List[Any] = None, use_native_function_calling: bool = False, document_context: str = None) -> str:
     """
     Run the six-team workflow: Research Team → Data Strategy Team → Compliance & Risk Team → Information Management Team → Tender Response Team → Project Delivery Team
     """

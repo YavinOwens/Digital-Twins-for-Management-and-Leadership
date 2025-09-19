@@ -55,7 +55,7 @@ def perform_workflow_presearch(query: str, workflow_name: str, conversation_hist
     return search_data
 
 
-def run_crew_workflow(query: str, llm, conversation_history=None, use_native_function_calling=False) -> str:
+def run_crew_workflow(query: str, llm, conversation_history=None, use_native_function_calling=False, document_context=None) -> str:
     """Run the CrewAI workflow and return results with conversation context"""
     
     start_time = time.time()
@@ -121,7 +121,7 @@ def run_crew_workflow(query: str, llm, conversation_history=None, use_native_fun
             
             print("🔧 Creating tasks...")
             # Use tasks with dependencies for better performance
-            tasks = create_research_analysis_tasks_with_data(researcher, analyst, writer, query, search_results, conversation_history)
+            tasks = create_research_analysis_tasks_with_data(researcher, analyst, writer, query, search_results, conversation_history, document_context)
             print(f"✅ Tasks created: {len(tasks)} tasks")
             
             # Create crew with optimized configuration and memory
@@ -169,7 +169,7 @@ def run_crew_workflow(query: str, llm, conversation_history=None, use_native_fun
         return f"Error in workflow execution: {str(e)}"
 
 
-def run_two_team_workflow(query: str, llm, conversation_history: List[Any] = None, use_native_function_calling: bool = False) -> str:
+def run_two_team_workflow(query: str, llm, conversation_history: List[Any] = None, use_native_function_calling: bool = False, document_context: str = None) -> str:
     """
     Run the two-team workflow: Research Team → Data Strategy Team
     """
@@ -290,7 +290,7 @@ def run_two_team_workflow(query: str, llm, conversation_history: List[Any] = Non
             
             # Create first team tasks
             print("🔧 Creating first team tasks...")
-            first_team_tasks = create_research_analysis_tasks_with_data(researcher, analyst, writer, query, search_results, conversation_history)
+            first_team_tasks = create_research_analysis_tasks_with_data(researcher, analyst, writer, query, search_results, conversation_history, document_context)
             print(f"✅ First team tasks created: {len(first_team_tasks)} tasks")
             
             # Create first team crew

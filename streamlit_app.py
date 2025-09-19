@@ -49,6 +49,9 @@ from local_memory import add_to_memory, search_memory, get_memory_stats, clear_m
 # Import presearch functionality
 from presearch import PreSearchManager
 
+# Import document upload functionality
+from ui_components.document_upload import DocumentUploadUI
+
 # Import workflow functions from workflows package
 from workflows import (
     run_crew_workflow,
@@ -179,6 +182,30 @@ def main():
     else:
         st.info("🔍 Pre-search mode - data is searched first, then processed")
 
+    # Document Upload Section
+    st.subheader("📁 Document Upload & Data Integration")
+    st.write("Upload documents and datasets to enhance the Digital Twin analysis with real organizational data.")
+    
+    # Initialize document upload UI
+    doc_upload_ui = DocumentUploadUI()
+    
+    # Create document upload section
+    uploaded_documents = doc_upload_ui.create_file_upload_section()
+    
+    # Save documents to session state if any were uploaded
+    if uploaded_documents:
+        doc_upload_ui.save_documents_to_session(uploaded_documents)
+        st.success(f"✅ Successfully uploaded {len(uploaded_documents)} documents!")
+    
+    # Document management section
+    doc_upload_ui.create_document_management_section()
+    
+    # Add document context to session state for agents
+    if 'uploaded_documents' in st.session_state and st.session_state.uploaded_documents:
+        st.session_state.document_context = doc_upload_ui.get_agent_context(st.session_state.uploaded_documents)
+    else:
+        st.session_state.document_context = "No documents uploaded yet."
+
     # Initialize LLM - Ollama Cloud (Turbo)
     llm = initialize_llm(use_cloud=True, api_key=api_key, _cache_key=f"cloud_{api_key[:8] if api_key else 'none'}")
     
@@ -259,30 +286,35 @@ def main():
                 if workflow_type == "Four-Team Enterprise (DAMA + Compliance + Information Management)":
                     # Four-team workflow - always use pre-search approach for reliability
                     st.info("🔍 Using four-team workflow with pre-search approach (most reliable)...")
-                    workflow_result = run_four_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    document_context = st.session_state.get('document_context', 'No documents uploaded yet.')
+                    workflow_result = run_four_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False, document_context=document_context)
                 elif workflow_type == "Three-Team Complete (DAMA + Compliance)":
                     # Three-team workflow
+                    document_context = st.session_state.get('document_context', 'No documents uploaded yet.')
                     if use_native:
                         st.info("🚀 Using three-team workflow with native function calling...")
-                        workflow_result = run_three_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
+                        workflow_result = run_three_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True, document_context=document_context)
                     else:
                         st.info("🔍 Using three-team workflow with pre-search approach...")
-                        workflow_result = run_three_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                        workflow_result = run_three_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False, document_context=document_context)
                 elif workflow_type == "Two-Team Data Strategy (DAMA)":
                     # Two-team workflow
+                    document_context = st.session_state.get('document_context', 'No documents uploaded yet.')
                     if use_native:
                         st.info("🚀 Using two-team workflow with native function calling...")
-                        workflow_result = run_two_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
+                        workflow_result = run_two_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True, document_context=document_context)
                     else:
                         st.info("🔍 Using two-team workflow with pre-search approach...")
-                        workflow_result = run_two_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                        workflow_result = run_two_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False, document_context=document_context)
                 elif workflow_type == "Five-Team Tender Response (DAMA + Compliance + Information + Tender)":
                     # Five-team workflow - always use pre-search approach for reliability
                     st.info("🔍 Using five-team workflow with pre-search approach (most reliable)...")
-                    workflow_result = run_five_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    document_context = st.session_state.get('document_context', 'No documents uploaded yet.')
+                    workflow_result = run_five_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False, document_context=document_context)
                 elif workflow_type == "Six-Team Project Delivery (DAMA + Compliance + Information + Tender + Technical Delivery)":
                     # Six-team workflow - always use pre-search approach for reliability
                     st.info("🔍 Using six-team workflow with pre-search approach (most reliable)...")
+                    document_context = st.session_state.get('document_context', 'No documents uploaded yet.')
                     # Debug: Check LLM before passing to workflow
                     print(f"🔍 DEBUG: LLM being passed to workflow: {type(llm)}")
                     if llm:
@@ -290,15 +322,17 @@ def main():
                         print(f"🔍 DEBUG: LLM base_url: {getattr(llm, 'base_url', 'No base_url attr')}")
                     else:
                         print("🔍 DEBUG: LLM is None!")
-                    workflow_result = run_six_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    workflow_result = run_six_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False, document_context=document_context)
                 elif workflow_type == "Seven-Team Complete (DAMA + Compliance + Information + Tender + Technical Delivery + Technical Documentation)":
                     # Seven-team workflow - always use pre-search approach for reliability
                     st.info("🔍 Using seven-team workflow with pre-search approach (most reliable)...")
-                    workflow_result = run_seven_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    document_context = st.session_state.get('document_context', 'No documents uploaded yet.')
+                    workflow_result = run_seven_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False, document_context=document_context)
                 elif use_native:
                     # Try native function calling approach (standard workflow)
                     st.info("🚀 Using native function calling approach...")
-                    workflow_result = run_crew_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
+                    document_context = st.session_state.get('document_context', 'No documents uploaded yet.')
+                    workflow_result = run_crew_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True, document_context=document_context)
                 else:
                     # Use pre-search approach with visualization
                     st.info("🔍 Using pre-search approach with enhanced visualization...")
@@ -359,7 +393,8 @@ def main():
                                 st.write(f"{i}. {ref}")
                     
                     # Run the full workflow
-                    workflow_result = run_crew_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    document_context = st.session_state.get('document_context', 'No documents uploaded yet.')
+                    workflow_result = run_crew_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False, document_context=document_context)
                 
                 # Display the final result
                 response_placeholder.markdown(f"""
