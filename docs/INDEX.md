@@ -42,6 +42,8 @@ This is the comprehensive technical documentation index for the CrewAI Multi-Age
 
 ### Agent Teams
 - [Agent Teams Overview](agent_teams/README.md) - All 7 agent teams
+- [Framework Mapping](agent_teams/AGENT_TEAMS_FRAMEWORK_MAPPING.md) - Team frameworks and standards
+- [Framework Diagrams](agent_teams/FRAMEWORK_MAPPING_DIAGRAMS.md) - Visual framework mappings
 - [Research & Analysis](agent_teams/research_analysis.md) - Team 1 documentation
 - [Data Strategy](agent_teams/data_strategy.md) - Team 2 documentation
 - [Compliance & Risk](agent_teams/compliance_risk.md) - Team 3 documentation

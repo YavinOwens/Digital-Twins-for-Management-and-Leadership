@@ -1,6 +1,7 @@
 # Environment variables
 .env
 *.venv/
+memory_db/
 
 # Python
 __pycache__/
