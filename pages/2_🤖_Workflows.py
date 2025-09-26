@@ -22,6 +22,8 @@ from workflows import (
     run_six_team_workflow,
     run_seven_team_workflow
 )
+from dynamic_workflow_executor import run_dynamic_workflow, get_workflow_preview
+from agent_configuration import agent_config, AgentTeam
 
 def main():
     """Main function for the Workflows page"""
@@ -90,25 +92,96 @@ def main():
             help="If enabled, agents will try to call tools directly. Pre-search mode is recommended for reliable results."
         )
         
-        # Workflow type selection
-        st.subheader("🔄 Workflow Type")
-        workflow_type = st.radio(
-            "Choose Workflow Type:",
+        # Agent Selection
+        st.subheader("🤖 Agent Selection")
+        
+        # Workflow execution mode
+        execution_mode = st.radio(
+            "Choose Execution Mode:",
             [
-                "Standard Research & Analysis",
-                "Two-Team Data Strategy (DAMA)",
-                "Three-Team Complete (DAMA + Compliance)",
-                "Four-Team Enterprise (DAMA + Compliance + Information Management)",
-                "Five-Team Tender Response (DAMA + Compliance + Information + Tender)",
-                "Six-Team Project Delivery (DAMA + Compliance + Information + Tender + Technical Delivery)",
-                "Seven-Team Complete (DAMA + Compliance + Information + Tender + Technical Delivery + Technical Documentation)"
+                "🎯 Custom Agent Selection",
+                "📋 Predefined Workflows"
             ],
-            help="Select the number of teams for your workflow"
+            help="Select how you want to configure your workflow"
         )
+        
+        # Custom agent selection
+        if execution_mode == "🎯 Custom Agent Selection":
+            st.markdown("#### Select Teams to Include:")
+            
+            # Get available teams
+            available_teams = agent_config.get_available_teams()
+            
+            # Team selection checkboxes
+            selected_teams = []
+            for team_info in available_teams:
+                team_enabled = st.checkbox(
+                    f"**{team_info.name}** ({len(team_info.agents)} agents)",
+                    value=team_info.enabled,
+                    help=f"{team_info.description}"
+                )
+                
+                if team_enabled:
+                    selected_teams.append(team_info.team)
+                    
+                    # Show individual agent selection for this team
+                    with st.expander(f"Configure {team_info.name} agents", expanded=False):
+                        for agent in team_info.agents:
+                            agent_enabled = st.checkbox(
+                                f"• {agent.role}",
+                                value=agent.enabled,
+                                help=agent.description
+                            )
+                            # Update agent configuration
+                            if agent_enabled != agent.enabled:
+                                if agent_enabled:
+                                    agent_config.enable_agent(team_info.team, agent.name)
+                                else:
+                                    agent_config.disable_agent(team_info.team, agent.name)
+            
+            # Workflow preview
+            if selected_teams:
+                preview = get_workflow_preview(selected_teams)
+                st.markdown("#### 📊 Workflow Preview:")
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("Teams", preview["total_teams"])
+                with col2:
+                    st.metric("Total Agents", preview["total_agents"])
+                with col3:
+                    st.metric("Est. Duration", f"{preview['estimated_duration']} min")
+                
+                st.markdown("**Execution Order:**")
+                for i, team in enumerate(preview["teams"], 1):
+                    st.write(f"{i}. {team['name']} ({team['agents']} agents)")
+            
+            # Store custom selection
+            st.session_state.custom_team_selection = selected_teams
+            st.session_state.execution_mode = "custom"
+            
+        else:
+            # Predefined workflows
+            st.markdown("#### Predefined Workflows:")
+            workflow_type = st.radio(
+                "Choose Workflow Type:",
+                [
+                    "Standard Research & Analysis",
+                    "Two-Team Data Strategy (DAMA)",
+                    "Three-Team Complete (DAMA + Compliance)",
+                    "Four-Team Enterprise (DAMA + Compliance + Information Management)",
+                    "Five-Team Tender Response (DAMA + Compliance + Information + Tender)",
+                    "Six-Team Project Delivery (DAMA + Compliance + Information + Tender + Technical Delivery)",
+                    "Seven-Team Complete (DAMA + Compliance + Information + Tender + Technical Delivery + Technical Documentation)"
+                ],
+                help="Select the number of teams for your workflow"
+            )
+            
+            # Store predefined selection
+            st.session_state.workflow_type = workflow_type
+            st.session_state.execution_mode = "predefined"
         
         # Store in session state
         st.session_state.use_native_function_calling = use_native
-        st.session_state.workflow_type = workflow_type
     
     # Main content area
     st.markdown("## 🤖 Multi-Agent Workflow Execution")
@@ -153,45 +226,64 @@ def main():
                     st.error("❌ Failed to initialize LLM")
                     return
                 
-                # Get workflow type and function calling mode
+                # Get workflow configuration
                 use_native = st.session_state.get('use_native_function_calling', False)
-                workflow_type = st.session_state.get('workflow_type', 'Standard Research & Analysis')
+                execution_mode = st.session_state.get('execution_mode', 'predefined')
                 
-                # Execute workflow based on type
-                if workflow_type == "Four-Team Enterprise (DAMA + Compliance + Information Management)":
-                    st.info("🔍 Using four-team workflow with pre-search approach...")
-                    workflow_result = run_four_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
-                elif workflow_type == "Three-Team Complete (DAMA + Compliance)":
-                    if use_native:
-                        st.info("🚀 Using three-team workflow with native function calling...")
-                        workflow_result = run_three_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
-                    else:
-                        st.info("🔍 Using three-team workflow with pre-search approach...")
-                        workflow_result = run_three_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
-                elif workflow_type == "Two-Team Data Strategy (DAMA)":
-                    if use_native:
-                        st.info("🚀 Using two-team workflow with native function calling...")
-                        workflow_result = run_two_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
-                    else:
-                        st.info("🔍 Using two-team workflow with pre-search approach...")
-                        workflow_result = run_two_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
-                elif workflow_type == "Five-Team Tender Response (DAMA + Compliance + Information + Tender)":
-                    st.info("🔍 Using five-team workflow with pre-search approach...")
-                    workflow_result = run_five_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
-                elif workflow_type == "Six-Team Project Delivery (DAMA + Compliance + Information + Tender + Technical Delivery)":
-                    st.info("🔍 Using six-team workflow with pre-search approach...")
-                    workflow_result = run_six_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
-                elif workflow_type == "Seven-Team Complete (DAMA + Compliance + Information + Tender + Technical Delivery + Technical Documentation)":
-                    st.info("🔍 Using seven-team workflow with pre-search approach...")
-                    workflow_result = run_seven_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                # Execute workflow based on mode
+                if execution_mode == "custom":
+                    # Custom agent selection
+                    custom_teams = st.session_state.get('custom_team_selection', [])
+                    if not custom_teams:
+                        st.error("❌ No teams selected. Please select at least one team.")
+                        return
+                    
+                    st.info(f"🎯 Using custom workflow with {len(custom_teams)} teams...")
+                    workflow_result = run_dynamic_workflow(
+                        prompt, 
+                        llm, 
+                        st.session_state.messages, 
+                        use_native_function_calling=use_native,
+                        custom_team_selection=custom_teams
+                    )
                 else:
-                    # Standard workflow
-                    if use_native:
-                        st.info("🚀 Using native function calling approach...")
-                        workflow_result = run_crew_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
+                    # Predefined workflows
+                    workflow_type = st.session_state.get('workflow_type', 'Standard Research & Analysis')
+                    
+                    if workflow_type == "Four-Team Enterprise (DAMA + Compliance + Information Management)":
+                        st.info("🔍 Using four-team workflow with pre-search approach...")
+                        workflow_result = run_four_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    elif workflow_type == "Three-Team Complete (DAMA + Compliance)":
+                        if use_native:
+                            st.info("🚀 Using three-team workflow with native function calling...")
+                            workflow_result = run_three_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
+                        else:
+                            st.info("🔍 Using three-team workflow with pre-search approach...")
+                            workflow_result = run_three_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    elif workflow_type == "Two-Team Data Strategy (DAMA)":
+                        if use_native:
+                            st.info("🚀 Using two-team workflow with native function calling...")
+                            workflow_result = run_two_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
+                        else:
+                            st.info("🔍 Using two-team workflow with pre-search approach...")
+                            workflow_result = run_two_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    elif workflow_type == "Five-Team Tender Response (DAMA + Compliance + Information + Tender)":
+                        st.info("🔍 Using five-team workflow with pre-search approach...")
+                        workflow_result = run_five_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    elif workflow_type == "Six-Team Project Delivery (DAMA + Compliance + Information + Tender + Technical Delivery)":
+                        st.info("🔍 Using six-team workflow with pre-search approach...")
+                        workflow_result = run_six_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                    elif workflow_type == "Seven-Team Complete (DAMA + Compliance + Information + Tender + Technical Delivery + Technical Documentation)":
+                        st.info("🔍 Using seven-team workflow with pre-search approach...")
+                        workflow_result = run_seven_team_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
                     else:
-                        st.info("🔍 Using pre-search approach...")
-                        workflow_result = run_crew_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
+                        # Standard workflow
+                        if use_native:
+                            st.info("🚀 Using native function calling approach...")
+                            workflow_result = run_crew_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=True)
+                        else:
+                            st.info("🔍 Using pre-search approach...")
+                            workflow_result = run_crew_workflow(prompt, llm, st.session_state.messages, use_native_function_calling=False)
                 
                 # Display the result
                 response_placeholder.markdown(f"""

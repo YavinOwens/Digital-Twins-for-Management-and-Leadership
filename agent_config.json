@@ -1,0 +1,62 @@
+{
+  "teams": {
+    "research_analysis": {
+      "enabled": true,
+      "agents": {
+        "research_specialist": true,
+        "data_analyst": true,
+        "content_writer": false
+      }
+    },
+    "data_strategy": {
+      "enabled": true,
+      "agents": {
+        "data_governance_specialist": true,
+        "dcam_template_specialist": true,
+        "tranch_guidance_specialist": true
+      }
+    },
+    "compliance_risk": {
+      "enabled": true,
+      "agents": {
+        "compliance_specialist": true,
+        "risk_management_specialist": true,
+        "audit_governance_specialist": true
+      }
+    },
+    "information_management": {
+      "enabled": true,
+      "agents": {
+        "information_governance_specialist": true,
+        "metadata_management_specialist": true,
+        "data_quality_specialist": true
+      }
+    },
+    "tender_response": {
+      "enabled": false,
+      "agents": {
+        "tender_specialist": true,
+        "proposal_writer": true,
+        "compliance_expert": true
+      }
+    },
+    "project_delivery": {
+      "enabled": true,
+      "agents": {
+        "data_engineer": true,
+        "data_scientist": true,
+        "data_architect": true,
+        "devops_engineer": true,
+        "project_manager": true
+      }
+    },
+    "technical_documentation": {
+      "enabled": true,
+      "agents": {
+        "technical_writer": true,
+        "knowledge_manager": true,
+        "quality_assurance_specialist": true
+      }
+    }
+  }
+}

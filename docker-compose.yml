@@ -1,0 +1,31 @@
+services:
+  # Oracle Database 23ai
+  oracle-db:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: oracle-23ai
+    ports:
+      - "1521:1521"  # Database port
+      - "5500:5500"  # Enterprise Manager Express
+    environment:
+      - ORACLE_PWD=${ORACLE_PASSWORD:-WebKnowledge2024!}
+      - ORACLE_CHARACTERSET=AL32UTF8
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ./oracle_database/init_scripts:/opt/oracle/scripts
+    networks:
+      - web-knowledge-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "sqlplus", "-s", "sys/${ORACLE_PASSWORD:-WebKnowledge2024!}@FREEPDB1", "as", "sysdba", "-c", "SELECT 1 FROM DUAL;"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 300s
+
+volumes:
+  oracle_data:
+    driver: local
+
+networks:
+  web-knowledge-network:
+    driver: bridge
